@@ -1,0 +1,170 @@
+<html>
+	<head>
+		<title>
+			Guess The Number
+		</title>
+		<style>
+			*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url('https://codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg') center/cover no-repeat;
+}
+
+h1{
+    color:white;
+    margin-bottom:25px;
+    font-size:40px;
+    text-shadow:0 3px 10px rgba(0,0,0,0.5);
+}
+
+h2{
+    color:white;
+    margin-bottom:20px;
+    font-size:22px;
+}
+
+.contain{
+    width:400px;
+    padding:35px 30px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+    text-align:center;
+}
+
+#number{
+    width:100%;
+    padding:12px;
+    font-size:20px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    margin-bottom:15px;
+    text-align:center;
+    background:rgba(255,255,255,0.9);
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:600;
+    transition:0.3s ease;
+}
+
+#check{
+    background:linear-gradient(135deg,#00c853,#00e676);
+    color:white;
+}
+
+#check:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,200,83,0.4);
+}
+
+#restart{
+    background:linear-gradient(135deg,#ff3d00,#ff6d00);
+    color:white;
+    margin-left:0;
+}
+
+#restart:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(255,61,0,0.4);
+}
+
+#hint{
+    margin-top:18px;
+    font-size:20px;
+    color:#fff;
+    font-weight:600;
+    min-height:30px;
+    text-shadow:0 2px 5px rgba(0,0,0,0.5);
+}
+
+@media(max-width:500px){
+    .contain{
+        width:90%;
+        padding:25px;
+    }
+
+    h1{
+        font-size:30px;
+    }
+}
+		</style>
+	</head>
+	<body>
+		<center>
+			<h1>
+				Guess The Number Game
+			</h1>
+			<div class="contain">
+				<h2 id="attempts">
+					You have ATTEMPTS : 3
+				</h2>
+				<input type="text" id="number" required>
+				<br>
+				<button onclick="check()" id="check">
+					Check
+				</button>
+				<button onclick="tryagain()" style="display:none;" id='restart'>
+					Restart
+				</button>
+				<p id="hint">-</p>
+			</div>
+		</center>
+		<script>
+			var number = Math.trunc(Math.random() * 100);
+			console.log(number);
+			var attempt = 3;
+			function check(){
+				var value = document.getElementById('number').value;
+				if(value > number){
+					document.getElementById('hint').innerHTML = "The number is smaller";
+				}
+				if(number > value){
+					document.getElementById('hint').innerHTML = "The number is greater";
+				}
+				if(value == number){
+					document.getElementById('hint').innerHTML = "That's Correct !";
+					attempt= 3;
+				}
+				attempt--;
+				document.getElementById('attempts').innerHTML = 'You have ATTEMPTS :' + attempt;
+				if(attempt == 0){
+					document.getElementById('hint').innerHTML = "Attempt's Over ! TRY AGAIN by CLICKING ON RESTART Button";
+					document.getElementById('restart').style = 'display:block';
+					document.getElementById('check').style = 'display:none';
+					
+				}
+			}
+			function tryagain(){
+				attempt = 3;
+				document.getElementById('hint').innerHTML = "Null";
+				document.getElementById('restart').style = 'display:none;';
+				document.getElementById('check').style = 'display:block ; margin-left:5%;';
+				document.getElementById('number').value = '' ;
+				document.getElementById('attempts').innerHTML = 'You have ATTEMPTS : ' +  attempt;
+				number = Math.trunc(Math.random() * 100);
+				console.log(number);
+			}
+		</script>
+	</body>
+</html>
